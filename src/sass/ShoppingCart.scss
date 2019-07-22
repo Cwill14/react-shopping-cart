@@ -61,15 +61,25 @@
 
 		button {
 			border: 1px solid white;
-			background: transparent;
 			border-radius: 5px;
 			padding: 10px;
 			color: white;
-
-			&:hover {
-				background: black;
-				color: white;
+			&:active {
+				transform: translateY(2.5px);
 			}
+		}
+		.clearB {
+			background-color: darkred;
+			&:hover {
+				background-color: red;
+			}
+		}
+		.checkoutB {
+			background-color: darkgreen;
+			&:hover {
+				background-color: green;
+			}
+
 		}
 	}
 }

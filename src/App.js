@@ -16,6 +16,9 @@ function App() {
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
+		if (cart.includes(item)){
+			return null;
+		}
 		setCart([...cart, item]);
 	};
 
@@ -23,10 +26,14 @@ function App() {
 		setCart(cart.filter(item => item.id !== id))
 	}
 
+	const clearCart = () => {
+		setCart([]);
+	}
+
 	return (
 		<div className="App">
 			<ProductContext.Provider value={{ products, addItem }} >
-				<CartContext.Provider value={{ cart }} >
+				<CartContext.Provider value={{ cart, clearCart }} >
 					<ItemContext.Provider value={{ removeItem }} >
 						<Navigation />
 						<Route exact path="/" component={Products} />

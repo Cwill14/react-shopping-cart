@@ -6,13 +6,17 @@ import { CartContext } from '../contexts/CartContext';
 
 const ShoppingCart = () => {
 	
-	const { cart } = useContext(CartContext);
+	const { cart, clearCart } = useContext(CartContext);
 
 	const getCartTotal = () => {
 		return cart.reduce((acc, value) => {
 			return acc + value.price;
 		}, 0).toFixed(2);
 	};
+
+	const checkout = () => {
+		window.alert("Check Out In Progress!")
+	}
 
 	return (
 		<div className="shopping-cart">
@@ -21,8 +25,9 @@ const ShoppingCart = () => {
 			))}
 
 			<div className="shopping-cart__checkout">
+				<button className="clearB" onClick={() => clearCart()}>Clear Cart</button>
 				<p>Total: ${getCartTotal()}</p>
-				<button>Checkout</button>
+				<button className="checkoutB" onClick={() => checkout()}>Checkout</button>
 			</div>
 		</div>
 	);
