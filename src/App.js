@@ -16,18 +16,22 @@ function App() {
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
-		if (cart.includes(item)){
-			return null;
-		}
-		setCart([...cart, item]);
+		// if (cart.includes(item)){
+		// 	return null;
+		// }
+		// setCart([...cart, item]);
+		// localStorage.setItem( item.id, item.price);
+		localStorage.setItem( item.id, item.price);
 	};
 
 	const removeItem = id => {
-		setCart(cart.filter(item => item.id !== id))
+		// setCart(cart.filter(item => item.id !== id))
+		localStorage.removeItem(id);
 	}
 
 	const clearCart = () => {
-		setCart([]);
+		// setCart([]);
+		localStorage.clear();
 	}
 
 	return (
