@@ -7,34 +7,44 @@ import Navigation from './components/Navigation';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
 
+import { ProductContext } from './contexts/ProductContext';
+import { CartContext } from './contexts/CartContext';
+import { ItemContext } from './contexts/ItemContext';
+
 function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
-		setCart([...cart, item]);
+		// if (cart.includes(item)){
+		// 	return null;
+		// }
+		// setCart([...cart, item]);
+		// localStorage.setItem( item.id, item.price);
+		localStorage.setItem( item.id, item.price);
 	};
+
+	const removeItem = id => {
+		// setCart(cart.filter(item => item.id !== id))
+		localStorage.removeItem(id);
+	}
+
+	const clearCart = () => {
+		// setCart([]);
+		localStorage.clear();
+	}
 
 	return (
 		<div className="App">
-			<Navigation cart={cart} />
-
-			{/* Routes */}
-			<Route
-				exact
-				path="/"
-				render={() => (
-					<Products
-						products={products}
-						addItem={addItem}
-					/>
-				)}
-			/>
-
-			<Route
-				path="/cart"
-				render={() => <ShoppingCart cart={cart} />}
-			/>
+			<ProductContext.Provider value={{ products, addItem }} >
+				<CartContext.Provider value={{ cart, clearCart }} >
+					<ItemContext.Provider value={{ removeItem }} >
+						<Navigation />
+						<Route exact path="/" component={Products} />
+						<Route path="/cart" component={ShoppingCart} />
+					</ItemContext.Provider>
+				</CartContext.Provider>
+			</ProductContext.Provider>
 		</div>
 	);
 }
